@@ -6,8 +6,8 @@
 
 1. **Implement the Feature**
    - Create/modify necessary files
-   - Test on Steven Ginn site (auto-updates via symlink)
-   - Ensure all tools work correctly together
+   - Test on active symlinked sites (changes appear instantly)
+   - Ensure all tools work correctly across different themes/environments
 
 2. **Update Version Number** (REQUIRED)
    ```php

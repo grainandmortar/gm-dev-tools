@@ -5,14 +5,14 @@ WordPress plugin providing development tools for debugging and visualizing theme
 
 ## Development Setup
 - **Development Folder**: `/Users/edowns/Local Sites/wordpress-plugins/gm-dev-tools/`
-- **Test Site**: Steven Ginn Architects (symlinked to development folder)
 - **GitHub Repo**: https://github.com/grainandmortar/gm-dev-tools
+- **Test Sites**: Multiple client sites via symlinks (see Dynamic Testing Workflow below)
 
 ## Release Workflow (IMPORTANT)
 
 ### When Making Updates:
 1. **Make changes** in development folder
-2. **Test** on Steven Ginn site (automatic via symlink)
+2. **Test** on active symlinked sites (changes appear instantly)
 3. **Bump version number** in `gm-dev-tools.php` (both header and constant)
 4. **Update CHANGELOG.md** with changes
 5. **Commit and push**:
@@ -53,6 +53,58 @@ WordPress plugin providing development tools for debugging and visualizing theme
 - Collapsible container in bottom-right corner
 - Toggle with ⚙️ button
 - Persistent state via localStorage
+
+## Dynamic Testing Workflow
+
+### How We Use This Plugin
+We use symlinks to test G&M Dev Tools across multiple active client projects. This allows us to:
+- **Battle-test features** in real-world scenarios across different themes
+- **Refine tools** based on actual client project needs
+- **Maintain one codebase** while testing on multiple sites simultaneously
+
+### The Symlink Strategy
+```
+[Master Plugin Directory]
+/Users/edowns/Local Sites/wordpress-plugins/gm-dev-tools/
+        ↓                    ↓                    ↓
+[Active Client A]    [Active Client B]    [Active Client C]
+   (symlinked)          (symlinked)          (symlinked)
+```
+
+- **When starting a new client project**: Add a symlink to test the tools
+- **During development**: Any changes to the plugin instantly appear on all linked sites
+- **After project completion**: Remove the symlink to keep test sites current
+
+### Managing Symlinks
+
+#### To add a new test site:
+```bash
+# Just provide the Local site name (e.g., "awesome-client")
+ln -s "/Users/edowns/Local Sites/wordpress-plugins/gm-dev-tools" \
+      "/Users/edowns/Local Sites/[SITE-NAME]/app/public/wp-content/plugins/gm-dev-tools"
+```
+
+#### To remove an old test site:
+```bash
+# Remove the symlink (doesn't affect the master plugin)
+rm "/Users/edowns/Local Sites/[SITE-NAME]/app/public/wp-content/plugins/gm-dev-tools"
+```
+
+#### To check current symlinks:
+```bash
+# List all sites with the plugin symlinked
+find "/Users/edowns/Local Sites" -type l -name "gm-dev-tools" 2>/dev/null
+```
+
+### Currently Active Test Sites
+- Steven Ginn Architects (primary test site)
+- *[Add new sites here as they're symlinked]*
+
+### Why This Works Well
+1. **Real-world testing** - Features are tested on actual client projects, not just demo sites
+2. **Instant updates** - No need to copy files or deploy; changes appear immediately
+3. **Clean rotation** - Old projects removed, new projects added, keeping testing relevant
+4. **Single source of truth** - Only one codebase to maintain and push to GitHub
 
 ## Installation on New Sites
 
