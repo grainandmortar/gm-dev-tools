@@ -1,11 +1,12 @@
 <?php
 /**
  * Plugin Name: G&M Dev Tools 🛠️
- * Plugin URI: https://grainandmortar.com
+ * Plugin URI: https://github.com/grainandmortar/gm-dev-tools
  * Description: Development tools for debugging and visualizing WordPress themes. Includes outline mode, font x-ray, and more magical debugging goodness.
  * Version: 1.0.2
  * Author: Eric Downs - Grain & Mortar
  * Author URI: https://grainandmortar.com
+ * GitHub: https://github.com/grainandmortar/gm-dev-tools
  * License: GPL v2 or later
  * Text Domain: gm-dev-tools
  * 

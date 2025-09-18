@@ -14,7 +14,8 @@ Visual element outlines for layout debugging. Cycles through:
 Shows element tags and typography information on headings and paragraphs. Three modes:
 - **Off** - No labels
 - **Labels** - Shows element tags (H1, H2, P, etc.)
-- **Details** - Shows tags + font size/line height/color
+- **Details** - Shows tags + font size/line height/weight/color
+- Example: `H1 • 32px/120% • Bold • #333333`
 
 ### 🏷️ ACF Module Labels
 Displays ACF flexible content module names on the frontend for easy identification.

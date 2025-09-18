@@ -3,7 +3,7 @@ Contributors: ericdowns, grainandmortar
 Tags: development, debugging, tools, outline, font-size
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,19 +15,24 @@ G&M Dev Tools provides a suite of development and debugging tools for WordPress 
 
 = Current Tools =
 
-**Outline Toggle**
+**Outline Toggle 📐**
 - Visualize element boundaries with colored outlines
 - Three modes: Off, Divs Only, All Elements
 - Keyboard shortcut: Ctrl/Cmd + Shift + O
 - Persistent state using browser localStorage
 - Color-coded elements by type
 
-= Coming Soon =
+**Font X-Ray (Typography Inspector) 🔍**
+- Displays typography information on text elements
+- Shows element tags (H1, H2, P, etc.) in Labels mode
+- Details mode shows: font size, line height, font weight, and color
+- Example: H1 • 32px/120% • Bold • #333333
+- Keyboard shortcut: Ctrl/Cmd + Shift + T
 
-**Font Size X-Ray**
-- Display font sizes overlaid on text elements
-- Visualize typography hierarchy
-- Identify font size inconsistencies
+**ACF Module Labels 🏷️**
+- Shows ACF flexible content module names on frontend
+- Helps identify which modules are being used
+- Keyboard shortcut: Ctrl/Cmd + Shift + M
 
 == Installation ==
 
@@ -67,10 +72,20 @@ This plugin uses a modular architecture where each tool is self-contained. To ad
 
 == Changelog ==
 
+= 1.0.2 =
+* Added font weight display to Typography Inspector
+* Shows weight as readable text (Regular, Bold, etc.)
+
+= 1.0.1 =
+* Improved emoji spacing in tool buttons
+* Minor CSS refinements
+* Fixed mobile alignment issues
+
 = 1.0.0 =
 * Initial release
 * Outline Toggle tool
-* Font Size X-Ray placeholder
+* Font X-Ray (Typography Inspector)
+* ACF Module Labels
 * Modular tool architecture
 * Admin settings interface
 
