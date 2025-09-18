@@ -53,8 +53,8 @@ class GM_Dev_Tools_Updater {
 
         // Compare versions
         if (version_compare($this->version, $github_data->tag_name, '<')) {
-            // Use archive link instead of zipball to avoid folder naming issues
-            $download_url = "https://github.com/{$this->github_username}/{$this->github_repo}/archive/refs/tags/{$github_data->tag_name}.zip";
+            // Use the properly formatted release asset
+            $download_url = "https://github.com/{$this->github_username}/{$this->github_repo}/releases/download/{$github_data->tag_name}/gm-dev-tools.zip";
 
             $plugin_data = array(
                 'slug' => 'gm-dev-tools',
