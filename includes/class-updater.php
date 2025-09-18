@@ -32,6 +32,7 @@ class GM_Dev_Tools_Updater {
         // Hook into WordPress update system
         add_filter('pre_set_site_transient_update_plugins', array($this, 'check_for_update'));
         add_filter('plugins_api', array($this, 'plugin_info'), 20, 3);
+        add_filter('upgrader_source_selection', array($this, 'fix_github_folder'), 10, 3);
         add_action('upgrader_process_complete', array($this, 'after_update'), 10, 2);
     }
 
@@ -53,7 +54,7 @@ class GM_Dev_Tools_Updater {
         // Compare versions
         if (version_compare($this->version, $github_data->tag_name, '<')) {
             $plugin_data = array(
-                'slug' => $this->plugin_slug,
+                'slug' => 'gm-dev-tools',
                 'plugin' => $this->plugin_slug,
                 'new_version' => $github_data->tag_name,
                 'url' => "https://github.com/{$this->github_username}/{$this->github_repo}",
@@ -81,7 +82,10 @@ class GM_Dev_Tools_Updater {
             return $result;
         }
 
-        if ($args->slug !== dirname($this->plugin_slug)) {
+        // Check if this is our plugin (handle various slug formats)
+        if ($args->slug !== 'gm-dev-tools' &&
+            $args->slug !== dirname($this->plugin_slug) &&
+            strpos($args->slug, 'gm-dev-tools') === false) {
             return $result;
         }
 
@@ -93,7 +97,7 @@ class GM_Dev_Tools_Updater {
 
         $plugin_info = array(
             'name' => 'G&M Dev Tools',
-            'slug' => dirname($this->plugin_slug),
+            'slug' => 'gm-dev-tools',
             'version' => $github_data->tag_name,
             'author' => '<a href="https://grainandmortar.com">Grain & Mortar</a>',
             'homepage' => "https://github.com/{$this->github_username}/{$this->github_repo}",
@@ -201,6 +205,29 @@ class GM_Dev_Tools_Updater {
         $html = nl2br($html);
 
         return $html;
+    }
+
+    /**
+     * Fix GitHub folder structure
+     */
+    public function fix_github_folder($source, $remote_source, $upgrader) {
+        global $wp_filesystem;
+
+        // Check if this is our plugin being updated
+        if (strpos($source, 'gm-dev-tools') === false) {
+            return $source;
+        }
+
+        // GitHub creates folders like: grainandmortar-gm-dev-tools-abc123
+        // We need it to be: gm-dev-tools
+        $corrected_source = trailingslashit($remote_source) . 'gm-dev-tools/';
+
+        // Move from GitHub folder structure to correct plugin folder
+        if ($wp_filesystem->move($source, $corrected_source)) {
+            return $corrected_source;
+        }
+
+        return $source;
     }
 
     /**
