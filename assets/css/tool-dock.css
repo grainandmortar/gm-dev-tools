@@ -1,0 +1,156 @@
+/**
+ * G&M Dev Tools - Tool Dock Styles
+ *
+ * Clean, unified styling for the dev tools dock
+ */
+
+/* ===========================
+   Dock Container
+   =========================== */
+.gm-tool-dock {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+/* ===========================
+   Toggle Button (Always Visible)
+   =========================== */
+.gm-dock-toggle {
+    background: #1a1a1a;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.gm-dock-toggle:hover {
+    background: #333;
+    transform: scale(1.05);
+}
+
+.gm-dock-toggle.collapsed {
+    background: #cf3018;
+}
+
+/* ===========================
+   Tools Container
+   =========================== */
+.gm-tools-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+/* ===========================
+   Tool Buttons (Unified Style)
+   =========================== */
+.gm-tools-container button {
+    /* Reset positioning */
+    position: relative !important;
+    bottom: auto !important;
+    right: auto !important;
+    top: auto !important;
+    left: auto !important;
+
+    /* Consistent styling */
+    background: white !important;
+    color: #1a1a1a !important;
+    border: 1px solid #e0e0e0 !important;
+    padding: 8px 14px !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    min-width: 140px !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    white-space: nowrap !important;
+}
+
+.gm-tools-container button:hover {
+    background: #f5f5f5 !important;
+    border-color: #999 !important;
+    transform: translateX(-2px) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Active state for tools */
+.gm-tools-container button.active,
+.gm-tools-container button.bg-red,
+.gm-tools-container button.bg-gray80,
+.gm-tools-container button[style*="background: rgb(0, 105, 55)"],
+.gm-tools-container button[style*="background: rgb(27, 86, 51)"] {
+    background: #22c55e !important;
+    color: white !important;
+    border-color: #16a34a !important;
+}
+
+.gm-tools-container button.active:hover {
+    background: #16a34a !important;
+}
+
+/* Tool emojis */
+.tool-emoji {
+    font-size: 16px !important;
+    line-height: 1 !important;
+}
+
+/* ===========================
+   Responsive Design
+   =========================== */
+@media (max-width: 768px) {
+    .gm-tool-dock {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .gm-dock-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .gm-tools-container {
+        padding: 6px;
+        max-width: 200px;
+    }
+
+    .gm-tools-container button {
+        font-size: 12px !important;
+        padding: 6px 10px !important;
+        min-width: 120px !important;
+    }
+}
+
+/* ===========================
+   Print Styles
+   =========================== */
+@media print {
+    .gm-tool-dock {
+        display: none !important;
+    }
+}

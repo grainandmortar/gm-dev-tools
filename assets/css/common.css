@@ -1,0 +1,28 @@
+/**
+ * G&M Dev Tools - Common Styles
+ * Shared styles for all dev tools
+ */
+
+/* Ensure dev tools have high z-index */
+.gm-dev-tool {
+    z-index: 99999;
+}
+
+/* Common animation classes */
+.gm-fade-in {
+    animation: gmFadeIn 0.3s ease-in;
+}
+
+.gm-fade-out {
+    animation: gmFadeOut 0.3s ease-out;
+}
+
+@keyframes gmFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes gmFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
