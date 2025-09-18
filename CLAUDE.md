@@ -83,4 +83,12 @@ git clone https://github.com/grainandmortar/gm-dev-tools.git
 - Plugin folder name must always be `gm-dev-tools` (no version suffix)
 - All sites with plugin installed will auto-check for updates
 
-Last updated: September 2024
+## Feature Development Workflow
+When adding new features, follow the workflow in WORKFLOW.md:
+1. Implement and test the feature
+2. Bump version in gm-dev-tools.php (BOTH header and constant)
+3. Update CHANGELOG.md, README.md, and readme.txt
+4. Commit and push to GitHub
+5. **CREATE GITHUB RELEASE** (required for updates to work!)
+
+Last updated: January 2025
