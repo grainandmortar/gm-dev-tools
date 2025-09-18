@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const fontSize = computedStyle.fontSize;
         const lineHeight = computedStyle.lineHeight;
         const color = computedStyle.color;
+        const fontWeight = computedStyle.fontWeight;
 
         // Determine the display name for the element
         let displayName = tagName;
@@ -80,6 +81,25 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get color display
         const colorDisplay = getColorName(color);
 
+        // Format font weight (convert numeric to text if needed)
+        let weightDisplay = fontWeight;
+        const weightMap = {
+            '100': 'Thin',
+            '200': 'ExtraLight',
+            '300': 'Light',
+            '400': 'Regular',
+            '500': 'Medium',
+            '600': 'SemiBold',
+            '700': 'Bold',
+            '800': 'ExtraBold',
+            '900': 'Black',
+            'normal': 'Regular',
+            'bold': 'Bold'
+        };
+        if (weightMap[fontWeight]) {
+            weightDisplay = weightMap[fontWeight];
+        }
+
         // Create wrapper div that will be positioned relative to the element
         const wrapper = document.createElement('div');
         wrapper.className = 'typography-label-wrapper';
@@ -93,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentState === 'labels') {
             label.textContent = displayName;
         } else if (currentState === 'details') {
-            label.textContent = `${displayName} • ${fontSize}/${lineHeightDisplay} • ${colorDisplay}`;
+            label.textContent = `${displayName} • ${fontSize}/${lineHeightDisplay} • ${weightDisplay} • ${colorDisplay}`;
         }
 
         // Make element position relative if it's not already positioned
