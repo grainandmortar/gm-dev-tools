@@ -5,6 +5,15 @@ All notable changes to G&M Dev Tools will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2024-09-18
+
+### Changed
+- Improved emoji spacing in tool buttons for better visual alignment
+- Minor CSS refinements for tool dock buttons
+
+### Fixed
+- Tool button text alignment on mobile devices
+
 ## [1.0.0] - 2024-09-18
 
 ### Added
