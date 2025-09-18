@@ -53,12 +53,15 @@ class GM_Dev_Tools_Updater {
 
         // Compare versions
         if (version_compare($this->version, $github_data->tag_name, '<')) {
+            // Use archive link instead of zipball to avoid folder naming issues
+            $download_url = "https://github.com/{$this->github_username}/{$this->github_repo}/archive/refs/tags/{$github_data->tag_name}.zip";
+
             $plugin_data = array(
                 'slug' => 'gm-dev-tools',
                 'plugin' => $this->plugin_slug,
                 'new_version' => $github_data->tag_name,
                 'url' => "https://github.com/{$this->github_username}/{$this->github_repo}",
-                'package' => $github_data->zipball_url,
+                'package' => $download_url,
                 'icons' => array(
                     '2x' => plugin_dir_url(dirname(__FILE__)) . 'admin/images/icon-256x256.png',
                     '1x' => plugin_dir_url(dirname(__FILE__)) . 'admin/images/icon-128x128.png',
@@ -106,7 +109,7 @@ class GM_Dev_Tools_Updater {
                 'description' => $this->parse_markdown($github_data->body),
                 'changelog' => $this->get_changelog(),
             ),
-            'download_link' => $github_data->zipball_url,
+            'download_link' => "https://github.com/{$this->github_username}/{$this->github_repo}/archive/refs/tags/{$github_data->tag_name}.zip",
             'tested' => get_bloginfo('version'),
             'requires' => '5.0',
             'requires_php' => '7.0',
@@ -213,17 +216,30 @@ class GM_Dev_Tools_Updater {
     public function fix_github_folder($source, $remote_source, $upgrader) {
         global $wp_filesystem;
 
-        // Check if this is our plugin being updated
-        if (strpos($source, 'gm-dev-tools') === false) {
+        // Only process during plugin updates
+        if (!isset($upgrader->skin->plugin)) {
             return $source;
         }
 
-        // GitHub creates folders like: grainandmortar-gm-dev-tools-abc123
-        // We need it to be: gm-dev-tools
+        // Check if this is our plugin
+        $plugin = isset($upgrader->skin->plugin) ? $upgrader->skin->plugin : '';
+        if (strpos($plugin, 'gm-dev-tools') === false) {
+            return $source;
+        }
+
+        // GitHub archive creates: gm-dev-tools-1.0.1 (tag name appended)
+        // We need it to be just: gm-dev-tools
         $corrected_source = trailingslashit($remote_source) . 'gm-dev-tools/';
 
-        // Move from GitHub folder structure to correct plugin folder
-        if ($wp_filesystem->move($source, $corrected_source)) {
+        // Check if the source ends with version number (e.g., gm-dev-tools-1.0.1)
+        if (preg_match('/gm-dev-tools-\d+\.\d+\.\d+$/i', basename($source))) {
+            // Ensure target doesn't exist
+            if ($wp_filesystem->exists($corrected_source)) {
+                $wp_filesystem->delete($corrected_source, true);
+            }
+
+            // Move to correct folder name
+            $wp_filesystem->move($source, $corrected_source, true);
             return $corrected_source;
         }
 
