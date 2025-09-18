@@ -1,0 +1,29 @@
+name: Create Release Assets
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Create plugin ZIP with correct folder name
+      run: |
+        mkdir -p /tmp/build
+        rsync -av --exclude='.git' --exclude='.github' --exclude='*.md' --exclude='.gitignore' ./ /tmp/build/gm-dev-tools/
+        cd /tmp/build
+        zip -r gm-dev-tools.zip gm-dev-tools
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: /tmp/build/gm-dev-tools.zip
+        asset_name: gm-dev-tools.zip
+        asset_content_type: application/zip
