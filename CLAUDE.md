@@ -40,11 +40,12 @@ WordPress plugin providing development tools for debugging and visualizing theme
    - Visual element outlines for layout debugging
    - Three modes: Off → Divs Only → All Elements
 
-2. **Font X-Ray (Typography Inspector)** 🔍
-   - Shows typography information
-   - Labels mode: Shows element tags (H1, H2, P, etc.)
-   - Details mode: Shows tag, font size, line height, font weight, and color
-   - Example: `H1 • 32px/120% • Bold • #333333`
+2. **Typography Inspector** 📏
+   - Progressive typography information with 4 detail levels
+   - Tags mode: Shows element tags (H1, H2, P, etc.)
+   - Fonts mode: Shows tags + font family names
+   - Full mode: Complete typography details
+   - Example: `H1 • Bembo MT Pro • 32px/120% • Bold • #333333`
 
 3. **ACF Module Labels** 🏷️
    - Displays ACF flexible content module names on frontend
@@ -125,6 +126,7 @@ git clone https://github.com/grainandmortar/gm-dev-tools.git
 - Updates download from GitHub release assets
 
 ## Version History
+- **1.1.0** - Enhanced Typography Inspector with progressive detail and font detection
 - **1.0.2** - Added font weight to Typography Inspector
 - **1.0.1** - UI improvements, emoji spacing
 - **1.0.0** - Initial release

@@ -16,8 +16,8 @@ class GM_Tool_Font_XRay extends GM_Dev_Tool {
      */
     public function __construct() {
         $this->id = 'font-xray';
-        $this->name = 'Font Size X-Ray 🔍';
-        $this->description = 'See through your typography! Visualize font sizes overlaid on text elements throughout the page. Perfect for catching those sneaky inconsistent sizes.';
+        $this->name = 'Typography Inspector 📏';
+        $this->description = 'Progressive typography information! Click to cycle through: Tags → Fonts → Full details. Shows element tags, font families, sizes, weights, and colors.';
         $this->enabled_by_default = false;
         $this->coming_soon = false; // Tool is now active!
     }

@@ -5,6 +5,21 @@ All notable changes to G&M Dev Tools will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-01-18
+
+### Added
+- **Progressive Typography Inspector** - Enhanced tool with 4 detail levels
+  - Tags only mode: Shows element tags (H1, P, etc.)
+  - Fonts mode: Shows tags + font family names
+  - Full mode: Shows complete typography details
+  - Cycles through progressive detail with each click
+
+### Changed
+- Renamed "Font X-Ray" to "Typography Inspector" for clarity
+- Updated Typography Inspector emoji from 🔍 to 📏 to better represent measurements
+- Merged font detection functionality directly into Typography Inspector
+- Removed drop shadows from all tool labels for cleaner appearance
+
 ## [1.0.2] - 2024-09-18
 
 ### Added

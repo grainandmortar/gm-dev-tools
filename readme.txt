@@ -1,9 +1,9 @@
 === G&M Dev Tools 🛠️ ===
 Contributors: ericdowns, grainandmortar
-Tags: development, debugging, tools, outline, font-size
+Tags: development, debugging, tools, outline, font-size, typography, fonts
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,11 +22,12 @@ G&M Dev Tools provides a suite of development and debugging tools for WordPress 
 - Persistent state using browser localStorage
 - Color-coded elements by type
 
-**Font X-Ray (Typography Inspector) 🔍**
-- Displays typography information on text elements
-- Shows element tags (H1, H2, P, etc.) in Labels mode
-- Details mode shows: font size, line height, font weight, and color
-- Example: H1 • 32px/120% • Bold • #333333
+**Typography Inspector 📏**
+- Progressive typography information with 4 detail levels
+- Tags mode: Shows element tags (H1, H2, P, etc.)
+- Fonts mode: Shows tags + font family names
+- Full mode: Complete typography details (size, line height, weight, color)
+- Example: H1 • Bembo MT Pro • 32px/120% • Bold • #333333
 - Keyboard shortcut: Ctrl/Cmd + Shift + T
 
 **ACF Module Labels 🏷️**
@@ -71,6 +72,13 @@ This plugin uses a modular architecture where each tool is self-contained. To ad
 * Some tools use localStorage to persist their state
 
 == Changelog ==
+
+= 1.1.0 =
+* Enhanced Typography Inspector with progressive detail levels
+* Added font family detection to Typography Inspector
+* Now cycles through: Tags → Fonts → Full details
+* Removed drop shadows from tool labels for cleaner appearance
+* Simplified from two tools to one unified tool
 
 = 1.0.2 =
 * Added font weight display to Typography Inspector

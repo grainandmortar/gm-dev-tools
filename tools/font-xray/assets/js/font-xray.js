@@ -1,18 +1,18 @@
-// Typography Inspector Tool (Font X-Ray)
-// Shows element tags and typography information on headings and paragraphs
-// Cycles through: Off → Labels → Details → Off
+// Typography Inspector Tool
+// Progressive disclosure of typography information
+// Cycles through: Off → Tags → Fonts → Full → Off
 
 document.addEventListener('DOMContentLoaded', function() {
     const STORAGE_KEY = 'typographyInspectorMode';
 
-    // States: 'off', 'labels', 'details'
+    // States: 'off', 'tags', 'fonts', 'full'
     let currentState = localStorage.getItem(STORAGE_KEY) || 'off';
 
     // Create toggle button
     const toggleButton = document.createElement('button');
     toggleButton.id = 'typographyToggle';
     toggleButton.style.cssText = 'background: #3782AA; color: white; padding: 8px 16px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); cursor: pointer; font-size: 14px; font-weight: 500; border: none; transition: all 0.3s ease; display: block;';
-    toggleButton.innerHTML = '<span class="tool-emoji">🔍</span><span id="typographyToggleText">Typography: Off</span>';
+    toggleButton.innerHTML = '<span class="tool-emoji">📏</span><span id="typographyToggleText">Typography: Off</span>';
     toggleButton.onmouseover = function() { this.style.transform = 'translateY(-2px)'; };
     toggleButton.onmouseout = function() { this.style.transform = 'translateY(0)'; };
     document.body.appendChild(toggleButton);
@@ -44,6 +44,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const hex = color.startsWith('rgb') ? rgbToHex(color) : color.toUpperCase();
         // Return just the hex for simplicity in WordPress context
         return hex;
+    }
+
+    // Function to get the actual rendered font
+    function getRenderedFont(element) {
+        const computedStyle = window.getComputedStyle(element);
+        const fontFamily = computedStyle.fontFamily;
+
+        // Clean up the font family string - just get the primary font
+        const cleanFontFamily = fontFamily
+            .replace(/['"]/g, '') // Remove quotes
+            .split(',')[0] // Get first font in stack
+            .trim();
+
+        return cleanFontFamily;
     }
 
     // Function to create label for an element
@@ -104,16 +118,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const wrapper = document.createElement('div');
         wrapper.className = 'typography-label-wrapper';
 
+        // Get font name
+        const fontName = getRenderedFont(element);
+
         // Create label element
         const label = document.createElement('div');
         label.className = 'typography-label';
         label.dataset.tag = displayName.toLowerCase();
 
         // Set label content based on mode
-        if (currentState === 'labels') {
+        if (currentState === 'tags') {
             label.textContent = displayName;
-        } else if (currentState === 'details') {
-            label.textContent = `${displayName} • ${fontSize}/${lineHeightDisplay} • ${weightDisplay} • ${colorDisplay}`;
+        } else if (currentState === 'fonts') {
+            label.textContent = `${displayName} • ${fontName}`;
+        } else if (currentState === 'full') {
+            label.textContent = `${displayName} • ${fontName} • ${fontSize}/${lineHeightDisplay} • ${weightDisplay} • ${colorDisplay}`;
         }
 
         // Make element position relative if it's not already positioned
@@ -149,6 +168,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Label all headings first
         headings.forEach(element => {
+            // Skip WordPress admin bar
+            if (element.closest('#wpadminbar')) {
+                return;
+            }
+
+            // Skip other tool labels and containers
+            if (element.classList.contains('acf-module-label') ||
+                element.closest('.acf-module-label') ||
+                element.classList.contains('typography-label') ||
+                element.closest('.typography-label-wrapper')) {
+                return;
+            }
+
+            // Skip tool buttons and dock
+            if (element.closest('#gm-tool-dock') ||
+                element.id === 'typographyToggle' ||
+                element.id === 'outlineToggle' ||
+                element.id === 'acfModuleToggle') {
+                return;
+            }
+
             // Skip hidden elements
             const style = window.getComputedStyle(element);
             if (style.display === 'none' || style.visibility === 'hidden') {
@@ -175,6 +215,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const otherElements = document.querySelectorAll(otherSelector);
 
         otherElements.forEach(element => {
+            // Skip WordPress admin bar
+            if (element.closest('#wpadminbar')) {
+                return;
+            }
+
+            // Skip other tool labels and containers
+            if (element.classList.contains('acf-module-label') ||
+                element.closest('.acf-module-label') ||
+                element.classList.contains('typography-label') ||
+                element.closest('.typography-label-wrapper')) {
+                return;
+            }
+
+            // Skip tool buttons and dock
+            if (element.closest('#gm-tool-dock') ||
+                element.id === 'typographyToggle' ||
+                element.id === 'outlineToggle' ||
+                element.id === 'acfModuleToggle') {
+                return;
+            }
+
             // Skip if this element or its parent was already labeled
             if (labeledElements.has(element)) {
                 return;
@@ -220,15 +281,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const toggleText = document.getElementById('typographyToggleText');
 
         switch(mode) {
-            case 'labels':
+            case 'tags':
                 toggleButton.style.background = '#006937'; // Kelly Green
-                toggleText.textContent = 'Typography: Labels';
-                localStorage.setItem(STORAGE_KEY, 'labels');
+                toggleText.textContent = 'Typography: Tags';
+                localStorage.setItem(STORAGE_KEY, 'tags');
                 break;
-            case 'details':
+            case 'fonts':
+                toggleButton.style.background = '#9B59B6'; // Purple
+                toggleText.textContent = 'Typography: Fonts';
+                localStorage.setItem(STORAGE_KEY, 'fonts');
+                break;
+            case 'full':
                 toggleButton.style.background = '#1B5633'; // Forest Green
-                toggleText.textContent = 'Typography: Details';
-                localStorage.setItem(STORAGE_KEY, 'details');
+                toggleText.textContent = 'Typography: Full';
+                localStorage.setItem(STORAGE_KEY, 'full');
                 break;
             case 'off':
             default:
@@ -249,12 +315,15 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleButton.addEventListener('click', function() {
         switch(currentState) {
             case 'off':
-                setTypographyMode('labels');
+                setTypographyMode('tags');
                 break;
-            case 'labels':
-                setTypographyMode('details');
+            case 'tags':
+                setTypographyMode('fonts');
                 break;
-            case 'details':
+            case 'fonts':
+                setTypographyMode('full');
+                break;
+            case 'full':
                 setTypographyMode('off');
                 break;
             default:

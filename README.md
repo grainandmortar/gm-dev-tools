@@ -10,12 +10,12 @@ Visual element outlines for layout debugging. Cycles through:
 - **Divs Only** - Shows only div elements
 - **All Elements** - Shows all HTML elements
 
-### 🔍 Font X-Ray (Typography Inspector)
-Shows element tags and typography information on headings and paragraphs. Three modes:
+### 📏 Typography Inspector
+Progressive typography information with 4 detail levels:
 - **Off** - No labels
-- **Labels** - Shows element tags (H1, H2, P, etc.)
-- **Details** - Shows tags + font size/line height/weight/color
-- Example: `H1 • 32px/120% • Bold • #333333`
+- **Tags** - Shows element tags (H1, H2, P, etc.)
+- **Fonts** - Shows tags + font family (e.g., `H1 • Bembo MT Pro`)
+- **Full** - Complete details (e.g., `H1 • Bembo MT Pro • 32px/120% • Bold • #333333`)
 
 ### 🏷️ ACF Module Labels
 Displays ACF flexible content module names on the frontend for easy identification.
@@ -75,7 +75,7 @@ gm-dev-tools/
 ├── includes/        # Core classes
 ├── tools/           # Individual tools
 │   ├── outline-toggle/
-│   ├── font-xray/
+│   ├── font-xray/           # Typography Inspector
 │   └── acf-module-labels/
 ├── gm-dev-tools.php # Main plugin file
 └── README.md

@@ -54,7 +54,6 @@
     pointer-events: none;
     text-transform: none;
     letter-spacing: 0.5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     opacity: 0;
     transform: translateY(-10px);
     transition: all 0.3s ease;

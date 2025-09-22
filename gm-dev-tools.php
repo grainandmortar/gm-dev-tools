@@ -3,7 +3,7 @@
  * Plugin Name: G&M Dev Tools 🛠️
  * Plugin URI: https://github.com/grainandmortar/gm-dev-tools
  * Description: Development tools for debugging and visualizing WordPress themes. Includes outline mode, font x-ray, and more magical debugging goodness.
- * Version: 1.0.2
+ * Version: 1.1.0
  * Author: Eric Downs - Grain & Mortar
  * Author URI: https://grainandmortar.com
  * GitHub: https://github.com/grainandmortar/gm-dev-tools
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('GM_DEV_TOOLS_VERSION', '1.0.2');
+define('GM_DEV_TOOLS_VERSION', '1.1.0');
 define('GM_DEV_TOOLS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('GM_DEV_TOOLS_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -74,13 +74,13 @@ class GM_Dev_Tools {
     private function register_tools() {
         // Register Outline Toggle tool
         $this->tool_manager->register_tool(new GM_Tool_Outline_Toggle());
-        
-        // Register Font X-Ray tool (placeholder for future development)
+
+        // Register Typography Inspector tool (with progressive detail)
         $this->tool_manager->register_tool(new GM_Tool_Font_XRay());
-        
+
         // Register ACF Module Labels tool
         $this->tool_manager->register_tool(new GM_Tool_ACF_Module_Labels());
-        
+
         // Additional tools can be registered here
     }
     
