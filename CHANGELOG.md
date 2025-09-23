@@ -5,6 +5,26 @@ All notable changes to G&M Dev Tools will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2025-01-23
+
+### Added
+- **Theme Configuration System** - Module Labels tool now supports custom theme configurations
+  - Themes can define their own module selectors via `gm-dev-tools-config.php`
+  - Supports any data attribute naming convention (data-module, data-component, etc.)
+  - Supports class-based module selection
+  - Optional prefix removal for cleaner label display
+  - Backward compatible with existing ACF module detection
+
+### Changed
+- Renamed "ACF Module Labels" to "Module Labels" for broader compatibility
+- Module Labels tool now dynamically adapts to theme configuration
+- Updated tool description to reflect support for custom modules
+
+### Improved
+- Plugin is now truly universal - no code changes needed for different sites
+- Configuration is version-controlled with theme, not plugin
+- Better documentation with clear examples
+
 ## [1.1.0] - 2025-01-18
 
 ### Added

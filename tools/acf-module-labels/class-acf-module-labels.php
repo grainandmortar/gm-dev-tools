@@ -11,15 +11,47 @@ if (!defined('ABSPATH')) {
 }
 
 class GM_Tool_ACF_Module_Labels extends GM_Dev_Tool {
-    
+
+    /**
+     * Module configuration
+     */
+    private $config = null;
+
     /**
      * Constructor
      */
     public function __construct() {
         $this->id = 'acf-module-labels';
-        $this->name = 'ACF Module Labels 🏷️';
-        $this->description = 'See the building blocks! Displays ACF module names on the frontend for easy identification. Perfect for developers and clients.';
+        $this->name = 'Module Labels 🏷️';
+        $this->description = 'See the building blocks! Displays module names on the frontend for easy identification. Works with ACF modules and custom theme modules.';
         $this->enabled_by_default = false;
+        $this->load_theme_config();
+    }
+
+    /**
+     * Load theme-specific configuration
+     */
+    private function load_theme_config() {
+        // Check if theme has a configuration file
+        $config_file = get_stylesheet_directory() . '/gm-dev-tools-config.php';
+
+        if (file_exists($config_file)) {
+            $config = include $config_file;
+            if (isset($config['module_labels'])) {
+                $this->config = $config['module_labels'];
+            }
+        }
+
+        // Set default configuration if none exists
+        if (!$this->config) {
+            $this->config = array(
+                'selector' => '[data-acf-module]',
+                'attribute' => 'acf-module',
+                'format_prefix' => '',
+                'class_selectors' => array(),
+                'format_function' => null,
+            );
+        }
     }
     
     /**
@@ -33,7 +65,7 @@ class GM_Tool_ACF_Module_Labels extends GM_Dev_Tool {
             array(),
             GM_DEV_TOOLS_VERSION
         );
-        
+
         // Enqueue JS
         wp_enqueue_script(
             'gm-tool-acf-module-labels',
@@ -41,6 +73,19 @@ class GM_Tool_ACF_Module_Labels extends GM_Dev_Tool {
             array(),
             GM_DEV_TOOLS_VERSION,
             true
+        );
+
+        // Pass configuration to JavaScript
+        wp_localize_script(
+            'gm-tool-acf-module-labels',
+            'gmModuleLabelsConfig',
+            array(
+                'selector' => $this->config['selector'],
+                'attribute' => $this->config['attribute'],
+                'formatPrefix' => $this->config['format_prefix'],
+                'classSelectors' => $this->config['class_selectors'],
+                'formatFunction' => $this->config['format_function'],
+            )
         );
     }
     
