@@ -55,19 +55,29 @@ class GM_Tool_Manager {
      * Initialize all enabled tools
      */
     public function init() {
+        // Check if tools should be shown in this environment
+        if (!GM_Dev_Tools_Environment::should_show_tools()) {
+            return;
+        }
+
         foreach ($this->tools as $tool) {
             if ($tool->is_enabled() && !$tool->is_coming_soon()) {
                 $tool->init();
             }
         }
     }
-    
+
     /**
      * Enqueue frontend assets for all enabled tools
      */
     public function enqueue_frontend_assets() {
         // Only load on frontend, not in admin
         if (is_admin()) {
+            return;
+        }
+
+        // Check if tools should be shown in this environment
+        if (!GM_Dev_Tools_Environment::should_show_tools()) {
             return;
         }
 

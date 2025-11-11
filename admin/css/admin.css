@@ -129,3 +129,134 @@ tr.coming-soon th {
 .notice {
     margin: 15px 0;
 }
+
+/* Environment Settings Styles */
+.environment-settings {
+    background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.environment-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.environment-status strong {
+    color: #23282d;
+}
+
+.env-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.env-badge.env-local {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #1976d2;
+}
+
+.env-badge.env-production {
+    background: #fff3e0;
+    color: #f57c00;
+    border: 1px solid #f57c00;
+}
+
+.env-badge.env-staging {
+    background: #f3e5f5;
+    color: #7b1fa2;
+    border: 1px solid #7b1fa2;
+}
+
+.env-visibility {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.env-visibility.visible {
+    background: #ecf7ed;
+    color: #46b450;
+    border: 1px solid #46b450;
+}
+
+.env-visibility.hidden {
+    background: #fef8e7;
+    color: #f0ad4e;
+    border: 1px solid #f0ad4e;
+}
+
+.show-tools-on label:first-child {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #23282d;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px;
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.radio-option:hover {
+    border-color: #2271b1;
+    background: #f6f7f7;
+}
+
+.radio-option input[type="radio"] {
+    margin: 3px 12px 0 0;
+    cursor: pointer;
+}
+
+.radio-option input[type="radio"]:checked + .radio-label {
+    color: #2271b1;
+}
+
+.radio-option:has(input[type="radio"]:checked) {
+    border-color: #2271b1;
+    background: #f0f6fc;
+}
+
+.radio-label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.radio-label strong {
+    font-size: 14px;
+    color: #23282d;
+}
+
+.radio-label small {
+    font-size: 12px;
+    color: #646970;
+    line-height: 1.4;
+}

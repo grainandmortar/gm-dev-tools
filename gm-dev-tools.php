@@ -26,6 +26,7 @@ define('GM_DEV_TOOLS_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 // Include core files
 require_once GM_DEV_TOOLS_PLUGIN_DIR . 'includes/abstract-tool.php';
+require_once GM_DEV_TOOLS_PLUGIN_DIR . 'includes/class-environment.php';
 require_once GM_DEV_TOOLS_PLUGIN_DIR . 'includes/class-tool-manager.php';
 require_once GM_DEV_TOOLS_PLUGIN_DIR . 'includes/class-updater.php';
 
@@ -152,18 +153,27 @@ class GM_Dev_Tools {
         if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'gm_dev_tools_settings')) {
             wp_die('Security check failed');
         }
-        
+
         // Check permissions
         if (!current_user_can('manage_options')) {
             wp_die('Insufficient permissions');
         }
-        
+
         // Get enabled tools from POST data
         $enabled_tools = isset($_POST['enabled_tools']) ? array_map('sanitize_text_field', $_POST['enabled_tools']) : array();
-        
+
+        // Get environment setting
+        $show_on = isset($_POST['show_on']) ? sanitize_text_field($_POST['show_on']) : 'local';
+
+        // Validate show_on value
+        if (!in_array($show_on, array('local', 'production', 'both'))) {
+            $show_on = 'local';
+        }
+
         // Save to options
         update_option('gm_dev_tools_enabled', $enabled_tools);
-        
+        update_option('gm_dev_tools_show_on', $show_on);
+
         wp_send_json_success(array('message' => 'Settings saved successfully'));
     }
     
@@ -202,5 +212,10 @@ register_activation_hook(__FILE__, function() {
     // Set default enabled tools on first activation
     if (false === get_option('gm_dev_tools_enabled')) {
         update_option('gm_dev_tools_enabled', array('outline-toggle'));
+    }
+
+    // Set default environment setting (local only for safety)
+    if (false === get_option('gm_dev_tools_show_on')) {
+        update_option('gm_dev_tools_show_on', 'local');
     }
 });
