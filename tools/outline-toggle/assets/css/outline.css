@@ -17,7 +17,14 @@
     font-weight: 500;
     transition: all 0.3s ease;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    display: block;
+
+    /* Hide until moved into dock by JavaScript */
+    display: none;
+}
+
+/* Show when inside dock */
+.gm-tools-container .gm-outline-toggle-btn {
+    display: flex !important;
 }
 
 .gm-outline-toggle-btn:hover {
