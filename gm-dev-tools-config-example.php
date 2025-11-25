@@ -67,6 +67,30 @@ return array(
 		 * - null - Use default formatter (default)
 		 */
 		'format_function' => null,
+
+		/**
+		 * Optional: Auto-detect modules from HTML comments
+		 * When enabled, the tool will scan for HTML comments like <!-- Text Block -->
+		 * and automatically associate them with the next sibling element.
+		 * This works great for themes that don't use data attributes but have
+		 * descriptive comments before each module.
+		 * Examples:
+		 * - true - Enable comment detection (default)
+		 * - false - Disable comment detection
+		 */
+		'detect_comments' => true,
+
+		/**
+		 * Optional: Custom regex patterns for detecting module comments
+		 * By default, the tool looks for patterns like "Text Block", "Hero Module",
+		 * "page_module_text_block", etc. Add custom patterns here if your theme
+		 * uses different comment formats.
+		 * Examples:
+		 * - array('^\\s*Module:\\s*(\\w+)\\s*$') - Matches "Module: name"
+		 * - array('^\\s*Component:\\s*([\\w-]+)\\s*$') - Matches "Component: my-name"
+		 * - array() - Use default patterns (default)
+		 */
+		'comment_patterns' => array(),
 	),
 
 	/**

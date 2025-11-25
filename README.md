@@ -130,27 +130,69 @@ return array(
 // Looks for: <div class="module">
 ```
 
-### Module Preparation
+### Theme Integration
 
-For the Module Labels tool to work, your theme's modules need identifiable attributes:
+For Module Labels to work, wrap each module in a div with a `data-module` attribute. Here's how to do it for ACF Flexible Content modules:
 
-```html
-<!-- ACF Module (default) -->
-<div data-acf-module="hero_banner">
-    <!-- module content -->
+#### Step 1: Wrap modules in your loader file
+
+In your module loader file (e.g., `page_modules.php`), wrap each module:
+
+```php
+<?php if ( have_rows( 'page_modules', $page_variable ) ): ?>
+<?php while ( have_rows( 'page_modules', $page_variable ) ) : the_row(); ?>
+<div class="gm-module-wrapper" data-module="<?php echo esc_attr( get_row_layout() ); ?>">
+<?php
+    $layout = get_row_layout();
+    switch ( $layout ) {
+        case 'page_module_text_block':
+            get_template_part('inc/modules/page_modules/page_module_text_block');
+            break;
+        case 'page_module_title_block':
+            get_template_part('inc/modules/page_modules/page_module_title_block');
+            break;
+        // ... add all your modules
+    }
+?>
 </div>
+<?php endwhile; ?>
+<?php endif; ?>
+```
 
-<!-- Custom Module -->
-<div data-module="page_module_home_hero">
-    <!-- module content -->
-</div>
+#### Step 2: That's it!
 
-<!-- With HTML comment for source viewing -->
-<!-- MODULE: page_module_home_hero -->
-<div data-module="page_module_home_hero">
-    <!-- module content -->
+The plugin will automatically:
+- Find all `[data-module]` elements
+- Display a small label in the top-right corner showing the module name
+- Strip common prefixes like `page_module_` for cleaner display
+- Number each module (1, 2, 3...)
+
+#### Before & After Example
+
+**Before (typical ACF flexible content):**
+```php
+<?php if ( get_row_layout() == 'page_module_text_block' ) : ?>
+    <?php get_template_part('inc/modules/page_modules/page_module_text_block'); ?>
+<?php endif; ?>
+```
+
+**After (with module labels support):**
+```php
+<div class="gm-module-wrapper" data-module="<?php echo esc_attr( get_row_layout() ); ?>">
+<?php if ( get_row_layout() == 'page_module_text_block' ) : ?>
+    <?php get_template_part('inc/modules/page_modules/page_module_text_block'); ?>
+<?php endif; ?>
 </div>
 ```
+
+#### Module Loaders to Update
+
+Apply this pattern to all your module loader files:
+- `inc/modules/page_modules/page_modules.php`
+- `inc/modules/hero_modules/hero_modules.php`
+- `inc/modules/cta_modules/cta_modules.php`
+- `inc/modules/media_modules/media_modules.php`
+- etc.
 
 ## Requirements
 

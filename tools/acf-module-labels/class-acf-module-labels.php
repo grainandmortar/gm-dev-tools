@@ -45,11 +45,9 @@ class GM_Tool_ACF_Module_Labels extends GM_Dev_Tool {
         // Set default configuration if none exists
         if (!$this->config) {
             $this->config = array(
-                'selector' => '[data-acf-module]',
-                'attribute' => 'acf-module',
-                'format_prefix' => '',
-                'class_selectors' => array(),
-                'format_function' => null,
+                'selector' => '[data-module]',
+                'attribute' => 'module',
+                'format_prefix' => 'page_module_',
             );
         }
     }
@@ -75,16 +73,12 @@ class GM_Tool_ACF_Module_Labels extends GM_Dev_Tool {
             true
         );
 
-        // Pass configuration to JavaScript
+        // Pass configuration to JavaScript (simplified - JS handles formatting now)
         wp_localize_script(
             'gm-tool-acf-module-labels',
             'gmModuleLabelsConfig',
             array(
                 'selector' => $this->config['selector'],
-                'attribute' => $this->config['attribute'],
-                'formatPrefix' => $this->config['format_prefix'],
-                'classSelectors' => $this->config['class_selectors'],
-                'formatFunction' => $this->config['format_function'],
             )
         );
     }

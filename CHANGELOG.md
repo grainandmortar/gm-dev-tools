@@ -5,6 +5,24 @@ All notable changes to G&M Dev Tools will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2025-11-25
+
+### Changed
+- **Simplified Module Labels** - Now uses simple `data-module` attribute approach
+  - Labels appear as small badges in top-right corner of each module
+  - Numbered labels (1, 2, 3...) for easy reference
+  - Cleaner display with common prefixes stripped automatically
+  - No complex comment detection - just wrap modules in theme
+
+### Improved
+- Much simpler theme integration - just wrap modules with `data-module` attribute
+- Better documentation with step-by-step integration guide
+- More reliable label positioning with absolute positioning
+
+### Removed
+- Complex comment detection system (was unreliable)
+- Unnecessary configuration options
+
 ## [1.2.0] - 2025-01-23
 
 ### Added
