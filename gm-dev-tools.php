@@ -33,7 +33,6 @@ require_once GM_DEV_TOOLS_PLUGIN_DIR . 'includes/class-updater.php';
 // Include individual tools
 require_once GM_DEV_TOOLS_PLUGIN_DIR . 'tools/outline-toggle/class-outline-toggle.php';
 require_once GM_DEV_TOOLS_PLUGIN_DIR . 'tools/font-xray/class-font-xray.php';
-require_once GM_DEV_TOOLS_PLUGIN_DIR . 'tools/acf-module-labels/class-acf-module-labels.php';
 
 /**
  * Main plugin class
@@ -78,9 +77,6 @@ class GM_Dev_Tools {
 
         // Register Typography Inspector tool (with progressive detail)
         $this->tool_manager->register_tool(new GM_Tool_Font_XRay());
-
-        // Register ACF Module Labels tool
-        $this->tool_manager->register_tool(new GM_Tool_ACF_Module_Labels());
 
         // Additional tools can be registered here
     }
